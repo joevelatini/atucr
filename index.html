@@ -1,262 +1,284 @@
-import React, { useState } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActivTrak Use Case Router</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
 
-const data = {
-  categories: {
-    "Technology Compliance": {
-      pillar: "Workforce Management",
-      outcome: "Cost Optimization",
-      description: "Identify unauthorized tools, shadow IT, and ensure employees use approved applications",
-      useCases: ["Non-Approved Website Usage", "False Activity (Mouse Jiggling)", "Non-Approved AI Tools"],
-      keywords: ["tools", "applications", "software", "apps", "shadow IT", "unauthorized", "approved", "licenses", "AI tools", "chatgpt", "non-approved", "mouse jiggling", "false activity", "jiggler", "compliance", "what are they using", "which apps"],
-      reports: [
-        { name: "Application Usage", section: "Technology and AI Usage" },
-        { name: "Website Usage", section: "Technology and AI Usage" },
-        { name: "Category Usage", section: "Technology and AI Usage" },
-        { name: "Activity Log", section: "Technology and AI Usage" },
-        { name: "Technology Utilization", section: "Executive Summaries" },
-        { name: "Compliance Alarms - Configuration", section: "Notifications" },
-        { name: "Compliance Alarms - Alarm Analysis", section: "Notifications" }
-      ]
-    },
-    "Policy & Schedule Adherence": {
-      pillar: "Workforce Management",
-      outcome: "Cost Optimization",
-      description: "Ensure employees follow attendance policies, work expected hours, and adhere to RTO requirements",
-      useCases: ["Attendance Adherence", "Scheduled/Core Hours Adherence", "Contractor Billing Reconciliation", "RTO Policy Adherence"],
-      keywords: ["schedule", "hours", "attendance", "shift", "start time", "end time", "overtime", "adherence", "remote", "hybrid", "RTO", "return to office", "contractor", "billing", "core hours", "when working", "time tracking", "clock in", "working hours"],
-      reports: [
-        { name: "Schedule Adherence", section: "Workforce Management" },
-        { name: "Schedule Adherence Trends", section: "Productivity Optimization" },
-        { name: "Daily Work Metrics", section: "Workforce Management" },
-        { name: "Real-time Visibility", section: "Workforce Management" },
-        { name: "Productivity by User", section: "Workforce Management" },
-        { name: "Productivity Signals", section: "Notifications" }
-      ]
-    },
-    "Utilization Expectations": {
-      pillar: "Workforce Management / Productivity Optimization",
-      outcome: "Cost Optimization → Revenue Generation",
-      description: "Understand how employees and technology resources are being utilized across the organization",
-      useCases: ["Employee Utilization", "Technology Utilization"],
-      keywords: ["utilization", "capacity", "utilized", "underutilized", "overworked", "bandwidth", "resources", "headcount", "staffing", "workload", "how busy", "how much work"],
-      reports: [
-        { name: "Workforce Utilization", section: "Executive Summaries" },
-        { name: "Technology Utilization", section: "Executive Summaries" },
-        { name: "Workload Balance", section: "Productivity Optimization" },
-        { name: "Team Comparison", section: "Executive Summaries" },
-        { name: "Impact Analysis", section: "Executive Summaries" },
-        { name: "Productivity Trends", section: "Workforce Management" }
-      ]
-    },
-    "Productivity Coaching": {
-      pillar: "Productivity Optimization",
-      outcome: "Revenue Generation",
-      description: "Identify coaching opportunities and help employees build better productivity habits",
-      useCases: ["Productivity Habits", "Productivity Insights by Location", "Technology Adoption"],
-      keywords: ["coaching", "habits", "improve", "performance", "training", "adoption", "location", "office vs remote", "productivity insights", "help employees", "struggling", "underperforming", "feedback"],
-      reports: [
-        { name: "Coaching Opportunities", section: "Productivity Optimization" },
-        { name: "Productivity Achievement", section: "Productivity Optimization" },
-        { name: "Productivity by Location", section: "Productivity Optimization" },
-        { name: "Personal Insights", section: "Productivity Optimization" },
-        { name: "Focus and Collaboration", section: "Productivity Optimization" },
-        { name: "Benchmarks and Goals", section: "Productivity Optimization" },
-        { name: "Organization Insights", section: "Executive Summaries" }
-      ]
-    },
-    "Activity Alignment": {
-      pillar: "Productivity Optimization",
-      outcome: "Revenue Generation",
-      description: "Ensure employee activities align with business priorities and identify efficiency opportunities",
-      useCases: ["Best Practice Activity Guidance", "Administrative Work Reduction", "Workflow Efficiency & AI Opportunities"],
-      keywords: ["alignment", "best practice", "administrative", "admin work", "efficiency", "workflow", "AI opportunities", "automation", "priorities", "focus", "time spent", "where is time going"],
-      reports: [
-        { name: "Activity Alignment", section: "Productivity Optimization" },
-        { name: "Category Usage", section: "Technology and AI Usage" },
-        { name: "Application Usage", section: "Technology and AI Usage" },
-        { name: "Focus and Collaboration", section: "Productivity Optimization" },
-        { name: "Organization Insights", section: "Executive Summaries" },
-        { name: "Workload Balance", section: "Productivity Optimization" }
-      ]
-    },
-    "Performance & Productivity Correlation": {
-      pillar: "Productivity Optimization",
-      outcome: "Revenue Generation",
-      description: "Connect productivity data with business outcomes like sales performance and customer satisfaction",
-      useCases: ["Sales / ActivTrak Integration", "CSAT / ActivTrak Integration"],
-      keywords: ["sales", "CSAT", "performance", "correlation", "outcomes", "revenue", "results", "CRM", "integration", "ROI", "business impact", "metrics", "KPIs"],
-      reports: [
-        { name: "Impact Analysis", section: "Executive Summaries" },
-        { name: "Team Comparison", section: "Executive Summaries" },
-        { name: "Benchmarks and Goals", section: "Productivity Optimization" },
-        { name: "Productivity Achievement", section: "Productivity Optimization" },
-        { name: "Organization Insights", section: "Executive Summaries" }
-      ]
-    }
-  }
-};
+        const data = {
+            categories: {
+                "Technology Compliance": {
+                    pillar: "Workforce Management",
+                    outcome: "Cost Optimization",
+                    description: "Identify unauthorized tools, shadow IT, and ensure employees use approved applications",
+                    useCases: ["Non-Approved Website Usage", "False Activity (Mouse Jiggling)", "Non-Approved AI Tools"],
+                    keywords: ["tools", "applications", "software", "apps", "shadow IT", "unauthorized", "approved", "licenses", "AI tools", "chatgpt", "non-approved", "mouse jiggling", "false activity", "jiggler", "compliance", "what are they using", "which apps"],
+                    reports: [
+                        { name: "Application Usage", section: "Technology and AI Usage" },
+                        { name: "Website Usage", section: "Technology and AI Usage" },
+                        { name: "Category Usage", section: "Technology and AI Usage" },
+                        { name: "Activity Log", section: "Technology and AI Usage" },
+                        { name: "Technology Utilization", section: "Executive Summaries" },
+                        { name: "Compliance Alarms - Configuration", section: "Notifications" },
+                        { name: "Compliance Alarms - Alarm Analysis", section: "Notifications" }
+                    ]
+                },
+                "Policy & Schedule Adherence": {
+                    pillar: "Workforce Management",
+                    outcome: "Cost Optimization",
+                    description: "Ensure employees follow attendance policies, work expected hours, and adhere to RTO requirements",
+                    useCases: ["Attendance Adherence", "Scheduled/Core Hours Adherence", "Contractor Billing Reconciliation", "RTO Policy Adherence"],
+                    keywords: ["schedule", "hours", "attendance", "shift", "start time", "end time", "overtime", "adherence", "remote", "hybrid", "RTO", "return to office", "contractor", "billing", "core hours", "when working", "time tracking", "clock in", "working hours"],
+                    reports: [
+                        { name: "Schedule Adherence", section: "Workforce Management" },
+                        { name: "Schedule Adherence Trends", section: "Productivity Optimization" },
+                        { name: "Daily Work Metrics", section: "Workforce Management" },
+                        { name: "Real-time Visibility", section: "Workforce Management" },
+                        { name: "Productivity by User", section: "Workforce Management" },
+                        { name: "Productivity Signals", section: "Notifications" }
+                    ]
+                },
+                "Utilization Expectations": {
+                    pillar: "Workforce Management / Productivity Optimization",
+                    outcome: "Cost Optimization → Revenue Generation",
+                    description: "Understand how employees and technology resources are being utilized across the organization",
+                    useCases: ["Employee Utilization", "Technology Utilization"],
+                    keywords: ["utilization", "capacity", "utilized", "underutilized", "overworked", "bandwidth", "resources", "headcount", "staffing", "workload", "how busy", "how much work"],
+                    reports: [
+                        { name: "Workforce Utilization", section: "Executive Summaries" },
+                        { name: "Technology Utilization", section: "Executive Summaries" },
+                        { name: "Workload Balance", section: "Productivity Optimization" },
+                        { name: "Team Comparison", section: "Executive Summaries" },
+                        { name: "Impact Analysis", section: "Executive Summaries" },
+                        { name: "Productivity Trends", section: "Workforce Management" }
+                    ]
+                },
+                "Productivity Coaching": {
+                    pillar: "Productivity Optimization",
+                    outcome: "Revenue Generation",
+                    description: "Identify coaching opportunities and help employees build better productivity habits",
+                    useCases: ["Productivity Habits", "Productivity Insights by Location", "Technology Adoption"],
+                    keywords: ["coaching", "habits", "improve", "performance", "training", "adoption", "location", "office vs remote", "productivity insights", "help employees", "struggling", "underperforming", "feedback"],
+                    reports: [
+                        { name: "Coaching Opportunities", section: "Productivity Optimization" },
+                        { name: "Productivity Achievement", section: "Productivity Optimization" },
+                        { name: "Productivity by Location", section: "Productivity Optimization" },
+                        { name: "Personal Insights", section: "Productivity Optimization" },
+                        { name: "Focus and Collaboration", section: "Productivity Optimization" },
+                        { name: "Benchmarks and Goals", section: "Productivity Optimization" },
+                        { name: "Organization Insights", section: "Executive Summaries" }
+                    ]
+                },
+                "Activity Alignment": {
+                    pillar: "Productivity Optimization",
+                    outcome: "Revenue Generation",
+                    description: "Ensure employee activities align with business priorities and identify efficiency opportunities",
+                    useCases: ["Best Practice Activity Guidance", "Administrative Work Reduction", "Workflow Efficiency & AI Opportunities"],
+                    keywords: ["alignment", "best practice", "administrative", "admin work", "efficiency", "workflow", "AI opportunities", "automation", "priorities", "focus", "time spent", "where is time going"],
+                    reports: [
+                        { name: "Activity Alignment", section: "Productivity Optimization" },
+                        { name: "Category Usage", section: "Technology and AI Usage" },
+                        { name: "Application Usage", section: "Technology and AI Usage" },
+                        { name: "Focus and Collaboration", section: "Productivity Optimization" },
+                        { name: "Organization Insights", section: "Executive Summaries" },
+                        { name: "Workload Balance", section: "Productivity Optimization" }
+                    ]
+                },
+                "Performance & Productivity Correlation": {
+                    pillar: "Productivity Optimization",
+                    outcome: "Revenue Generation",
+                    description: "Connect productivity data with business outcomes like sales performance and customer satisfaction",
+                    useCases: ["Sales / ActivTrak Integration", "CSAT / ActivTrak Integration"],
+                    keywords: ["sales", "CSAT", "performance", "correlation", "outcomes", "revenue", "results", "CRM", "integration", "ROI", "business impact", "metrics", "KPIs"],
+                    reports: [
+                        { name: "Impact Analysis", section: "Executive Summaries" },
+                        { name: "Team Comparison", section: "Executive Summaries" },
+                        { name: "Benchmarks and Goals", section: "Productivity Optimization" },
+                        { name: "Productivity Achievement", section: "Productivity Optimization" },
+                        { name: "Organization Insights", section: "Executive Summaries" }
+                    ]
+                }
+            }
+        };
 
-const pillarColors = {
-  "Workforce Management": "bg-blue-100 text-blue-800",
-  "Productivity Optimization": "bg-teal-100 text-teal-800",
-  "Workforce Management / Productivity Optimization": "bg-purple-100 text-purple-800"
-};
+        const pillarColors = {
+            "Workforce Management": "bg-blue-100 text-blue-800",
+            "Productivity Optimization": "bg-teal-100 text-teal-800",
+            "Workforce Management / Productivity Optimization": "bg-purple-100 text-purple-800"
+        };
 
-export default function UseCaseRouter() {
-  const [input, setInput] = useState('');
-  const [results, setResults] = useState(null);
-  const [showAll, setShowAll] = useState(false);
+        function UseCaseRouter() {
+            const [input, setInput] = useState('');
+            const [results, setResults] = useState(null);
+            const [showAll, setShowAll] = useState(false);
 
-  const analyzeInput = () => {
-    if (!input.trim()) return;
-    const inputLower = input.toLowerCase();
-    const scores = {};
-    
-    Object.entries(data.categories).forEach(([category, info]) => {
-      let score = 0;
-      info.keywords.forEach(keyword => {
-        if (inputLower.includes(keyword.toLowerCase())) {
-          score += keyword.split(' ').length;
-        }
-      });
-      if (score > 0) {
-        scores[category] = { score, ...info };
-      }
-    });
+            const analyzeInput = () => {
+                if (!input.trim()) return;
+                const inputLower = input.toLowerCase();
+                const scores = {};
 
-    const sorted = Object.entries(scores)
-      .sort((a, b) => b[1].score - a[1].score)
-      .map(([category, info]) => ({ category, ...info }));
+                Object.entries(data.categories).forEach(([category, info]) => {
+                    let score = 0;
+                    info.keywords.forEach(keyword => {
+                        if (inputLower.includes(keyword.toLowerCase())) {
+                            score += keyword.split(' ').length;
+                        }
+                    });
+                    if (score > 0) {
+                        scores[category] = { score, ...info };
+                    }
+                });
 
-    setResults(sorted.length > 0 ? sorted : 'no-match');
-    setShowAll(false);
-  };
+                const sorted = Object.entries(scores)
+                    .sort((a, b) => b[1].score - a[1].score)
+                    .map(([category, info]) => ({ category, ...info }));
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') analyzeInput();
-  };
+                setResults(sorted.length > 0 ? sorted : 'no-match');
+                setShowAll(false);
+            };
 
-  const selectCategory = (cat) => {
-    setResults([{ category: cat, ...data.categories[cat] }]);
-    setShowAll(false);
-  };
+            const handleKeyPress = (e) => {
+                if (e.key === 'Enter') analyzeInput();
+            };
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm p-5 mb-4">
-          <h1 className="text-xl font-bold text-gray-800 mb-1">ActivTrak Use Case Router</h1>
-          <p className="text-gray-500 text-sm mb-4">What is the customer trying to accomplish?</p>
-          
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder='e.g., "I need to identify what tools employees are using"'
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-            />
-            <button onClick={analyzeInput} className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm">
-              Analyze
-            </button>
-          </div>
-        </div>
+            const selectCategory = (cat) => {
+                setResults([{ category: cat, ...data.categories[cat] }]);
+                setShowAll(false);
+            };
 
-        {results === 'no-match' && (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-            <p className="text-yellow-800 text-sm">No matching use case found. Try different keywords or browse categories below.</p>
-          </div>
-        )}
+            return (
+                <div className="min-h-screen bg-gray-50 p-4">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="bg-white rounded-lg shadow-sm p-5 mb-4">
+                            <h1 className="text-xl font-bold text-gray-800 mb-1">ActivTrak Use Case Router</h1>
+                            <p className="text-gray-500 text-sm mb-4">What is the customer trying to accomplish?</p>
 
-        {results && results !== 'no-match' && (
-          <div className="space-y-4 mb-4">
-            {results.map((result, idx) => (
-              <div key={result.category} className={`bg-white rounded-lg shadow-sm p-4 border-l-4 ${idx === 0 ? 'border-green-500' : 'border-gray-300'}`}>
-                <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  {idx === 0 && <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Best Match</span>}
-                  <span className={`text-xs font-medium px-2 py-0.5 rounded ${pillarColors[result.pillar]}`}>{result.pillar}</span>
-                  <span className="text-xs text-gray-400">→ {result.outcome}</span>
-                </div>
-                <h2 className="text-lg font-semibold text-gray-800 mb-1">{result.category}</h2>
-                <p className="text-gray-600 text-sm mb-3">{result.description}</p>
-                
-                <div className="mb-3">
-                  <p className="text-xs font-medium text-gray-500 mb-1">Use Cases Addressed:</p>
-                  <div className="flex flex-wrap gap-1">
-                    {result.useCases.map(uc => (
-                      <span key={uc} className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">{uc}</span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <p className="text-xs font-medium text-gray-500 mb-2">Recommended Reports & Views:</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {result.reports.map(report => (
-                      <div key={report.name} className="flex items-center justify-between bg-gray-50 p-2 rounded text-sm">
-                        <div>
-                          <p className="font-medium text-gray-800">{report.name}</p>
-                          <p className="text-xs text-gray-400">{report.section}</p>
+                            <div className="flex gap-2">
+                                <input
+                                    type="text"
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    onKeyPress={handleKeyPress}
+                                    placeholder='e.g., "I need to identify what tools employees are using"'
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                />
+                                <button onClick={analyzeInput} className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm">
+                                    Analyze
+                                </button>
+                            </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+
+                        {results === 'no-match' && (
+                            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                                <p className="text-yellow-800 text-sm">No matching use case found. Try different keywords or browse categories below.</p>
+                            </div>
+                        )}
+
+                        {results && results !== 'no-match' && (
+                            <div className="space-y-4 mb-4">
+                                {results.map((result, idx) => (
+                                    <div key={result.category} className={`bg-white rounded-lg shadow-sm p-4 border-l-4 ${idx === 0 ? 'border-green-500' : 'border-gray-300'}`}>
+                                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                            {idx === 0 && <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Best Match</span>}
+                                            <span className={`text-xs font-medium px-2 py-0.5 rounded ${pillarColors[result.pillar]}`}>{result.pillar}</span>
+                                            <span className="text-xs text-gray-400">→ {result.outcome}</span>
+                                        </div>
+                                        <h2 className="text-lg font-semibold text-gray-800 mb-1">{result.category}</h2>
+                                        <p className="text-gray-600 text-sm mb-3">{result.description}</p>
+
+                                        <div className="mb-3">
+                                            <p className="text-xs font-medium text-gray-500 mb-1">Use Cases Addressed:</p>
+                                            <div className="flex flex-wrap gap-1">
+                                                {result.useCases.map(uc => (
+                                                    <span key={uc} className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">{uc}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <p className="text-xs font-medium text-gray-500 mb-2">Recommended Reports & Views:</p>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                                {result.reports.map(report => (
+                                                    <div key={report.name} className="flex items-center justify-between bg-gray-50 p-2 rounded text-sm">
+                                                        <div>
+                                                            <p className="font-medium text-gray-800">{report.name}</p>
+                                                            <p className="text-xs text-gray-400">{report.section}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        <div className="bg-white rounded-lg shadow-sm p-4">
+                            <div className="flex justify-between items-center mb-3">
+                                <h3 className="font-semibold text-gray-800 text-sm">Browse by Category</h3>
+                                <button onClick={() => setShowAll(!showAll)} className="text-blue-600 text-xs hover:underline">
+                                    {showAll ? 'Collapse' : 'Show Details'}
+                                </button>
+                            </div>
+
+                            <div className="mb-3">
+                                <p className="text-xs text-gray-500 mb-2 font-medium">Workforce Management (Cost Optimization)</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {["Technology Compliance", "Policy & Schedule Adherence"].map(cat => (
+                                        <button key={cat} onClick={() => selectCategory(cat)} className="text-left px-3 py-2 bg-blue-50 border border-blue-200 rounded hover:bg-blue-100 text-sm text-gray-700">
+                                            {cat}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mb-3">
+                                <p className="text-xs text-gray-500 mb-2 font-medium">Bridge</p>
+                                <div className="flex flex-wrap gap-2">
+                                    <button onClick={() => selectCategory("Utilization Expectations")} className="text-left px-3 py-2 bg-purple-50 border border-purple-200 rounded hover:bg-purple-100 text-sm text-gray-700">
+                                        Utilization Expectations
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p className="text-xs text-gray-500 mb-2 font-medium">Productivity Optimization (Revenue Generation)</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {["Productivity Coaching", "Activity Alignment", "Performance & Productivity Correlation"].map(cat => (
+                                        <button key={cat} onClick={() => selectCategory(cat)} className="text-left px-3 py-2 bg-teal-50 border border-teal-200 rounded hover:bg-teal-100 text-sm text-gray-700">
+                                            {cat}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {showAll && (
+                                <div className="mt-4 pt-4 border-t text-xs text-gray-500">
+                                    <p className="font-medium mb-2">Framework Overview:</p>
+                                    <p>Cost Optimization → Revenue Generation spectrum</p>
+                                    <p>Workforce Management pillars focus on compliance and efficiency</p>
+                                    <p>Productivity Optimization pillars focus on coaching and business outcomes</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+            );
+        }
 
-        <div className="bg-white rounded-lg shadow-sm p-4">
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="font-semibold text-gray-800 text-sm">Browse by Category</h3>
-            <button onClick={() => setShowAll(!showAll)} className="text-blue-600 text-xs hover:underline">
-              {showAll ? 'Collapse' : 'Show Details'}
-            </button>
-          </div>
-          
-          <div className="mb-3">
-            <p className="text-xs text-gray-500 mb-2 font-medium">Workforce Management (Cost Optimization)</p>
-            <div className="flex flex-wrap gap-2">
-              {["Technology Compliance", "Policy & Schedule Adherence"].map(cat => (
-                <button key={cat} onClick={() => selectCategory(cat)} className="text-left px-3 py-2 bg-blue-50 border border-blue-200 rounded hover:bg-blue-100 text-sm text-gray-700">
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          <div className="mb-3">
-            <p className="text-xs text-gray-500 mb-2 font-medium">Bridge</p>
-            <div className="flex flex-wrap gap-2">
-              <button onClick={() => selectCategory("Utilization Expectations")} className="text-left px-3 py-2 bg-purple-50 border border-purple-200 rounded hover:bg-purple-100 text-sm text-gray-700">
-                Utilization Expectations
-              </button>
-            </div>
-          </div>
-          
-          <div>
-            <p className="text-xs text-gray-500 mb-2 font-medium">Productivity Optimization (Revenue Generation)</p>
-            <div className="flex flex-wrap gap-2">
-              {["Productivity Coaching", "Activity Alignment", "Performance & Productivity Correlation"].map(cat => (
-                <button key={cat} onClick={() => selectCategory(cat)} className="text-left px-3 py-2 bg-teal-50 border border-teal-200 rounded hover:bg-teal-100 text-sm text-gray-700">
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {showAll && (
-            <div className="mt-4 pt-4 border-t text-xs text-gray-500">
-              <p className="font-medium mb-2">Framework Overview:</p>
-              <p>Cost Optimization → Revenue Generation spectrum</p>
-              <p>Workforce Management pillars focus on compliance and efficiency</p>
-              <p>Productivity Optimization pillars focus on coaching and business outcomes</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+        ReactDOM.render(<UseCaseRouter />, document.getElementById('root'));
+    </script>
+</body>
+</html>
