@@ -26,13 +26,12 @@
                     useCases: ["Non-Approved Website Usage", "False Activity (Mouse Jiggling)", "Non-Approved AI Tools"],
                     keywords: ["tools", "applications", "software", "apps", "shadow IT", "unauthorized", "approved", "licenses", "AI tools", "chatgpt", "non-approved", "mouse jiggling", "false activity", "jiggler", "compliance", "what are they using", "which apps"],
                     reports: [
-                        { name: "Application Usage", section: "Technology and AI Usage" },
-                        { name: "Website Usage", section: "Technology and AI Usage" },
-                        { name: "Category Usage", section: "Technology and AI Usage" },
-                        { name: "Activity Log", section: "Technology and AI Usage" },
-                        { name: "Technology Utilization", section: "Executive Summaries" },
-                        { name: "Compliance Alarms - Configuration", section: "Notifications" },
-                        { name: "Compliance Alarms - Alarm Analysis", section: "Notifications" }
+                        { name: "Application Usage", section: "Technology and AI Usage", tier: "E" },
+                        { name: "Website Usage", section: "Technology and AI Usage", tier: "E" },
+                        { name: "Category Usage", section: "Technology and AI Usage", tier: "E" },
+                        { name: "Activity Log", section: "Technology and AI Usage", tier: "E" },
+                        { name: "Technology Utilization", section: "Executive Summaries", tier: "P" },
+                        { name: "Compliance Alarms", section: "Notifications", tier: "E" }
                     ]
                 },
                 "Policy & Schedule Adherence": {
@@ -42,12 +41,12 @@
                     useCases: ["Attendance Adherence", "Scheduled/Core Hours Adherence", "Contractor Billing Reconciliation", "RTO Policy Adherence"],
                     keywords: ["schedule", "hours", "attendance", "shift", "start time", "end time", "overtime", "adherence", "remote", "hybrid", "RTO", "return to office", "contractor", "billing", "core hours", "when working", "time tracking", "clock in", "working hours"],
                     reports: [
-                        { name: "Schedule Adherence", section: "Workforce Management" },
-                        { name: "Schedule Adherence Trends", section: "Productivity Optimization" },
-                        { name: "Daily Work Metrics", section: "Workforce Management" },
-                        { name: "Real-time Visibility", section: "Workforce Management" },
-                        { name: "Productivity by User", section: "Workforce Management" },
-                        { name: "Productivity Signals", section: "Notifications" }
+                        { name: "Schedule Adherence", section: "Workforce Management", tier: "E+" },
+                        { name: "Schedule Adherence Trends", section: "Productivity Optimization", tier: "E+" },
+                        { name: "Daily Work Metrics", section: "Workforce Management", tier: "E" },
+                        { name: "Real-time Visibility", section: "Workforce Management", tier: "E" },
+                        { name: "Productivity by User", section: "Workforce Management", tier: "E" },
+                        { name: "Productivity Signals", section: "Notifications", tier: "E+" }
                     ]
                 },
                 "Utilization Expectations": {
@@ -57,12 +56,12 @@
                     useCases: ["Employee Utilization", "Technology Utilization"],
                     keywords: ["utilization", "capacity", "utilized", "underutilized", "overworked", "bandwidth", "resources", "headcount", "staffing", "workload", "how busy", "how much work"],
                     reports: [
-                        { name: "Workforce Utilization", section: "Executive Summaries" },
-                        { name: "Technology Utilization", section: "Executive Summaries" },
-                        { name: "Workload Balance", section: "Productivity Optimization" },
-                        { name: "Team Comparison", section: "Executive Summaries" },
-                        { name: "Impact Analysis", section: "Executive Summaries" },
-                        { name: "Productivity Trends", section: "Workforce Management" }
+                        { name: "Workforce Utilization", section: "Executive Summaries", tier: "E+" },
+                        { name: "Technology Utilization", section: "Executive Summaries", tier: "P" },
+                        { name: "Workload Balance", section: "Productivity Optimization", tier: "P" },
+                        { name: "Team Comparison", section: "Executive Summaries", tier: "P" },
+                        { name: "Impact Analysis", section: "Executive Summaries", tier: "P" },
+                        { name: "Productivity Trends", section: "Workforce Management", tier: "E" }
                     ]
                 },
                 "Productivity Coaching": {
@@ -72,13 +71,13 @@
                     useCases: ["Productivity Habits", "Productivity Insights by Location", "Technology Adoption"],
                     keywords: ["coaching", "habits", "improve", "performance", "training", "adoption", "location", "office vs remote", "productivity insights", "help employees", "struggling", "underperforming", "feedback"],
                     reports: [
-                        { name: "Coaching Opportunities", section: "Productivity Optimization" },
-                        { name: "Productivity Achievement", section: "Productivity Optimization" },
-                        { name: "Productivity by Location", section: "Productivity Optimization" },
-                        { name: "Personal Insights", section: "Productivity Optimization" },
-                        { name: "Focus and Collaboration", section: "Productivity Optimization" },
-                        { name: "Benchmarks and Goals", section: "Productivity Optimization" },
-                        { name: "Organization Insights", section: "Executive Summaries" }
+                        { name: "Coaching Opportunities", section: "Productivity Optimization", tier: "E+" },
+                        { name: "Productivity Achievement", section: "Productivity Optimization", tier: "E+" },
+                        { name: "Productivity by Location", section: "Productivity Optimization", tier: "P" },
+                        { name: "Personal Insights", section: "Productivity Optimization", tier: "P" },
+                        { name: "Focus and Collaboration", section: "Productivity Optimization", tier: "P" },
+                        { name: "Benchmarks and Goals", section: "Productivity Optimization", tier: "P" },
+                        { name: "Organization Insights", section: "Executive Summaries", tier: "P" }
                     ]
                 },
                 "Activity Alignment": {
@@ -88,12 +87,12 @@
                     useCases: ["Best Practice Activity Guidance", "Administrative Work Reduction", "Workflow Efficiency & AI Opportunities"],
                     keywords: ["alignment", "best practice", "administrative", "admin work", "efficiency", "workflow", "AI opportunities", "automation", "priorities", "focus", "time spent", "where is time going"],
                     reports: [
-                        { name: "Activity Alignment", section: "Productivity Optimization" },
-                        { name: "Category Usage", section: "Technology and AI Usage" },
-                        { name: "Application Usage", section: "Technology and AI Usage" },
-                        { name: "Focus and Collaboration", section: "Productivity Optimization" },
-                        { name: "Organization Insights", section: "Executive Summaries" },
-                        { name: "Workload Balance", section: "Productivity Optimization" }
+                        { name: "Activity Alignment", section: "Productivity Optimization", tier: "P" },
+                        { name: "Category Usage", section: "Technology and AI Usage", tier: "E" },
+                        { name: "Application Usage", section: "Technology and AI Usage", tier: "E" },
+                        { name: "Focus and Collaboration", section: "Productivity Optimization", tier: "P" },
+                        { name: "Organization Insights", section: "Executive Summaries", tier: "P" },
+                        { name: "Workload Balance", section: "Productivity Optimization", tier: "P" }
                     ]
                 },
                 "Performance & Productivity Correlation": {
@@ -103,11 +102,11 @@
                     useCases: ["Sales / ActivTrak Integration", "CSAT / ActivTrak Integration"],
                     keywords: ["sales", "CSAT", "performance", "correlation", "outcomes", "revenue", "results", "CRM", "integration", "ROI", "business impact", "metrics", "KPIs"],
                     reports: [
-                        { name: "Impact Analysis", section: "Executive Summaries" },
-                        { name: "Team Comparison", section: "Executive Summaries" },
-                        { name: "Benchmarks and Goals", section: "Productivity Optimization" },
-                        { name: "Productivity Achievement", section: "Productivity Optimization" },
-                        { name: "Organization Insights", section: "Executive Summaries" }
+                        { name: "Impact Analysis", section: "Executive Summaries", tier: "P" },
+                        { name: "Team Comparison", section: "Executive Summaries", tier: "P" },
+                        { name: "Benchmarks and Goals", section: "Productivity Optimization", tier: "P" },
+                        { name: "Productivity Achievement", section: "Productivity Optimization", tier: "E+" },
+                        { name: "Organization Insights", section: "Executive Summaries", tier: "P" }
                     ]
                 }
             }
@@ -213,7 +212,7 @@
                                                 {result.reports.map(report => (
                                                     <div key={report.name} className="flex items-center justify-between bg-gray-50 p-2 rounded text-sm">
                                                         <div>
-                                                            <p className="font-medium text-gray-800">{report.name}</p>
+                                                            <p className="font-medium text-gray-800">{report.name} <span className="text-xs italic text-gray-500">({report.tier})</span></p>
                                                             <p className="text-xs text-gray-400">{report.section}</p>
                                                         </div>
                                                     </div>
@@ -272,6 +271,10 @@
                                     <p>Productivity Optimization pillars focus on coaching and business outcomes</p>
                                 </div>
                             )}
+                        </div>
+
+                        <div className="mt-4 text-xs text-gray-400 text-center">
+                            <p><span className="italic">(E)</span> = Essentials & above | <span className="italic">(E+)</span> = Essentials Plus & above | <span className="italic">(P)</span> = Professional only</p>
                         </div>
                     </div>
                 </div>
