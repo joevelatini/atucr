@@ -122,6 +122,14 @@
             const [input, setInput] = useState('');
             const [results, setResults] = useState(null);
             const [showAll, setShowAll] = useState(false);
+            const [plan, setPlan] = useState('Professional');
+
+            const filterReportsByPlan = (reports) => {
+                if (plan === 'Professional') return reports;
+                if (plan === 'Essentials Plus') return reports.filter(r => r.tier === 'E' || r.tier === 'E+');
+                if (plan === 'Essentials') return reports.filter(r => r.tier === 'E');
+                return reports;
+            };
 
             const analyzeInput = () => {
                 if (!input.trim()) return;
@@ -162,6 +170,20 @@
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white rounded-lg shadow-sm p-5 mb-4">
                             <h1 className="text-xl font-bold text-gray-800 mb-1">ActivTrak Use Case Router</h1>
+                            
+                            <div className="flex items-center gap-2 mb-4">
+                                <label className="text-gray-500 text-sm">What plan are they on?</label>
+                                <select 
+                                    value={plan} 
+                                    onChange={(e) => setPlan(e.target.value)}
+                                    className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    <option value="Essentials">Essentials</option>
+                                    <option value="Essentials Plus">Essentials Plus</option>
+                                    <option value="Professional">Professional</option>
+                                </select>
+                            </div>
+
                             <p className="text-gray-500 text-sm mb-4">What value map item is the client looking to address?</p>
 
                             <div className="flex gap-2">
@@ -209,7 +231,7 @@
                                         <div>
                                             <p className="text-xs font-medium text-gray-500 mb-2">Recommended Reports & Views:</p>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                                {result.reports.map(report => (
+                                                {filterReportsByPlan(result.reports).map(report => (
                                                     <div key={report.name} className="flex items-center justify-between bg-gray-50 p-2 rounded text-sm">
                                                         <div>
                                                             <p className="font-medium text-gray-800">{report.name} <span className="text-xs italic text-gray-500">({report.tier})</span></p>
